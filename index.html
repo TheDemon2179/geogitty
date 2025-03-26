@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<!-- Изменен язык -->
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!-- Изменено название -->
+		<title>Geogitty - Угадай Географию!</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<div id="particles-js"></div>
+		<div class="floating-islands">
+			<div class="island"></div>
+			<div class="island"></div>
+			<div class="island"></div>
+			<div class="island"></div>
+		</div>
+
+		<div class="container">
+			<header>
+				<div class="globe-icon">🌎</div>
+				<h1 class="logo">Geogitty</h1>
+				<!-- Изменен текст -->
+				<p class="tagline" data-translate="tagline">
+					Проверь свои знания географии с помощью наших веселых и сложных
+					викторин! Угадывай столицы, страны, флаги и многое другое.
+				</p>
+			</header>
+
+			<!-- Добавлен блок для отображения названия челленджа -->
+			<div
+				id="challenge-info"
+				class="challenge-info"
+				style="
+					text-align: center;
+					margin-bottom: 1rem;
+					font-size: 1.1em;
+					color: var(--accent);
+					display: none;
+				"
+			>
+				Играем в челлендж: <span id="challenge-name"></span>
+			</div>
+
+			<div class="game-container">
+				<!-- Добавлен контейнер для финального результата (изначально скрыт) -->
+				<div id="end-game-screen" style="display: none; text-align: center">
+					<h2 data-translate="gameOver">Игра окончена!</h2>
+					<p style="font-size: 1.5rem; margin: 1rem 0">
+						<span data-translate="yourScore">Ваш итоговый счет</span>:
+						<span id="final-score">0</span>
+					</p>
+					<button
+						id="play-again-btn"
+						class="next-btn"
+						data-translate="playAgain"
+					>
+						Играть снова
+					</button>
+					<button
+						id="share-challenge-btn"
+						class="mode-btn"
+						data-translate="shareResults"
+						style="margin-top: 1rem; display: none"
+					>
+						Поделиться результатом (Челлендж)
+					</button>
+				</div>
+
+				<!-- Игровой интерфейс (изначально видим) -->
+				<div id="game-interface">
+					<div class="score-container">
+						<!-- Изменен текст -->
+						<div class="score">
+							🏆 <span data-translate="score">Счет</span>:
+							<span id="score">0</span>
+						</div>
+						<div class="streak">
+							🔥 <span data-translate="streak">Серия</span>:
+							<span id="streak">0</span>
+						</div>
+					</div>
+
+					<div class="progress-container">
+						<div class="progress-bar" id="progress" style="width: 0%"></div>
+					</div>
+
+					<div class="game-mode-selector">
+						<!-- Добавлены data-translate атрибуты -->
+						<button
+							class="mode-btn active"
+							data-mode="capitals"
+							data-translate="capitals"
+						>
+							Столицы
+						</button>
+						<button
+							class="mode-btn"
+							data-mode="countries"
+							data-translate="countries"
+						>
+							Страны
+						</button>
+						<button class="mode-btn" data-mode="flags" data-translate="flags">
+							Флаги
+						</button>
+						<button
+							class="mode-btn"
+							data-mode="landmarks"
+							data-translate="landmarks"
+						>
+							Места
+						</button>
+						<!-- Кнопка для создания челленджа (простая версия) -->
+						<button
+							id="create-challenge-btn"
+							class="mode-btn accent"
+							data-translate="createChallenge"
+							title="Создать ссылку на челлендж из текущего режима и 10 случайных вопросов"
+						>
+							Создать челлендж
+						</button>
+					</div>
+
+					<div class="question-container">
+						<!-- Изменен текст -->
+						<div class="question" id="question" data-translate="loading">
+							Загрузка вопроса...
+						</div>
+						<div class="feedback" id="feedback"></div>
+					</div>
+
+					<div class="options" id="options">
+						<!-- Опции будут генерироваться JS -->
+					</div>
+
+					<button
+						class="next-btn"
+						id="next-btn"
+						style="display: none"
+						data-translate="nextQuestion"
+					>
+						Следующий вопрос
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.3/particles.min.js"></script>
+		<script src="script.js"></script>
+	</body>
+</html>

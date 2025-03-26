@@ -1,0 +1,528 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap');
+
+:root {
+	--primary: #4f46e5;
+	--secondary: #10b981;
+	--accent: #f59e0b;
+	--dark: #1e293b;
+	--light: #f8fafc;
+	--glow: 0 0 15px rgba(79, 70, 229, 0.7);
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: 'Poppins', sans-serif;
+	background: linear-gradient(135deg, #0f172a, #1e293b);
+	color: var(--light);
+	min-height: 100vh;
+	overflow-x: hidden;
+}
+
+#particles-js {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: -1;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 2rem;
+	position: relative;
+	z-index: 1;
+}
+
+header {
+	text-align: center;
+	margin-bottom: 3rem;
+	position: relative;
+}
+
+.logo {
+	font-size: 4rem;
+	font-weight: 800;
+	background: linear-gradient(
+		90deg,
+		var(--primary),
+		var(--secondary),
+		var(--accent)
+	);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	text-shadow: var(--glow);
+	margin-bottom: 1rem;
+	animation: pulse 2s infinite alternate;
+}
+
+.tagline {
+	font-size: 1.2rem;
+	opacity: 0.9;
+	max-width: 600px;
+	margin: 0 auto;
+}
+
+.game-container {
+	background: rgba(30, 41, 59, 0.7);
+	backdrop-filter: blur(10px);
+	border-radius: 20px;
+	padding: 2rem;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+		inset 0 0 10px rgba(255, 255, 255, 0.1);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	max-width: 800px;
+	margin: 0 auto;
+	position: relative;
+	overflow: hidden;
+}
+
+.game-container::before {
+	content: '';
+	position: absolute;
+	top: -50%;
+	left: -50%;
+	width: 200%;
+	height: 200%;
+	background: radial-gradient(
+		circle,
+		rgba(79, 70, 229, 0.1) 0%,
+		transparent 70%
+	);
+	animation: rotate 20s linear infinite;
+	z-index: -1;
+}
+
+.question-container {
+	margin-bottom: 2rem;
+	text-align: center;
+}
+
+.question {
+	font-size: 1.8rem;
+	margin-bottom: 1.5rem;
+	background: linear-gradient(90deg, var(--light), #cbd5e1);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+.options {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 1rem;
+	margin-bottom: 2rem;
+}
+
+@media (max-width: 600px) {
+	.options {
+		grid-template-columns: 1fr;
+	}
+}
+
+.option {
+	background: rgba(15, 23, 42, 0.7);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 10px;
+	padding: 1rem;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	font-size: 1.1rem;
+	position: relative;
+	overflow: hidden;
+}
+
+.option:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+	border-color: rgba(79, 70, 229, 0.5);
+}
+
+.option::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: -100%;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		rgba(255, 255, 255, 0.1),
+		transparent
+	);
+	transition: 0.5s;
+}
+
+.option:hover::before {
+	left: 100%;
+}
+
+.option.correct {
+	background: rgba(16, 185, 129, 0.2);
+	border-color: var(--secondary);
+	box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+}
+
+.option.incorrect {
+	background: rgba(239, 68, 68, 0.2);
+	border-color: #ef4444;
+}
+
+.score-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1.5rem;
+}
+
+.score,
+.streak {
+	font-size: 1.2rem;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.streak {
+	color: var(--accent);
+}
+
+.progress-container {
+	width: 100%;
+	height: 10px;
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 5px;
+	margin-bottom: 2rem;
+	overflow: hidden;
+}
+
+.progress-bar {
+	height: 100%;
+	background: linear-gradient(90deg, var(--primary), var(--secondary));
+	border-radius: 5px;
+	transition: width 0.5s ease;
+	position: relative;
+}
+
+.progress-bar::after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		rgba(255, 255, 255, 0.3),
+		transparent
+	);
+	animation: progressShine 2s infinite;
+}
+
+.game-mode-selector {
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
+	margin-bottom: 2rem;
+	flex-wrap: wrap;
+}
+
+.mode-btn {
+	background: rgba(15, 23, 42, 0.7);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: 50px;
+	padding: 0.8rem 1.5rem;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	font-weight: 600;
+	color: var(--light);
+	position: relative;
+	overflow: hidden;
+}
+
+.mode-btn:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.mode-btn.active {
+	background: var(--primary);
+	box-shadow: 0 0 15px rgba(79, 70, 229, 0.5);
+}
+
+.feedback {
+	text-align: center;
+	margin: 1rem 0;
+	min-height: 2rem;
+	font-size: 1.2rem;
+}
+
+.correct-feedback {
+	color: var(--secondary);
+	text-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+}
+
+.incorrect-feedback {
+	color: #ef4444;
+}
+
+.next-btn {
+	background: var(--primary);
+	color: white;
+	border: none;
+	border-radius: 50px;
+	padding: 0.8rem 2rem;
+	font-size: 1.1rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	display: block;
+	margin: 0 auto;
+	box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+	position: relative;
+	overflow: hidden;
+}
+
+.next-btn:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 8px 20px rgba(79, 70, 229, 0.6);
+}
+
+.next-btn::after {
+	content: '';
+	position: absolute;
+	top: -50%;
+	left: -50%;
+	width: 200%;
+	height: 200%;
+	background: rgba(255, 255, 255, 0.1);
+	transform: rotate(45deg);
+	transition: all 0.5s ease;
+}
+
+.next-btn:hover::after {
+	left: 100%;
+	top: 100%;
+}
+
+.globe-icon {
+	font-size: 2rem;
+	margin-bottom: 1rem;
+	animation: float 3s ease-in-out infinite;
+}
+
+.confetti {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	background-color: var(--primary);
+	opacity: 0;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(1);
+		text-shadow: 0 0 10px rgba(79, 70, 229, 0.5);
+	}
+	100% {
+		transform: scale(1.05);
+		text-shadow: 0 0 20px rgba(79, 70, 229, 0.8),
+			0 0 30px rgba(79, 70, 229, 0.6);
+	}
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes progressShine {
+	0% {
+		transform: translateX(-100%);
+	}
+	100% {
+		transform: translateX(100%);
+	}
+}
+
+@keyframes float {
+	0% {
+		transform: translateY(0px);
+	}
+	50% {
+		transform: translateY(-10px);
+	}
+	100% {
+		transform: translateY(0px);
+	}
+}
+
+.floating-islands {
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	pointer-events: none;
+	z-index: -1;
+}
+
+.island {
+	position: absolute;
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	background: rgba(30, 41, 59, 0.2);
+	border: 1px solid rgba(255, 255, 255, 0.05);
+	box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
+	filter: blur(1px);
+}
+
+.island:nth-child(1) {
+	top: 10%;
+	left: 5%;
+	width: 300px;
+	height: 300px;
+	animation: float 8s ease-in-out infinite;
+}
+
+.island:nth-child(2) {
+	top: 60%;
+	left: 80%;
+	width: 150px;
+	height: 150px;
+	animation: float 6s ease-in-out infinite 1s;
+}
+
+.island:nth-child(3) {
+	top: 30%;
+	left: 70%;
+	width: 250px;
+	height: 250px;
+	animation: float 7s ease-in-out infinite 0.5s;
+}
+
+.island:nth-child(4) {
+	top: 70%;
+	left: 10%;
+	width: 180px;
+	height: 180px;
+	animation: float 9s ease-in-out infinite 1.5s;
+}
+
+.challenge-info {
+	text-align: center;
+	margin-bottom: 1.5rem; /* Увеличим отступ */
+	font-size: 1.2rem; /* Крупнее */
+	color: var(--accent);
+	font-weight: 600;
+	background: rgba(245, 158, 11, 0.1); /* Легкий фон в цвет акцента */
+	padding: 0.5rem 1rem;
+	border-radius: 8px;
+	display: inline-block; /* Чтобы фон был по размеру текста */
+	border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+/* Стили для экрана конца игры */
+#end-game-screen h2 {
+	font-size: 2.5rem;
+	margin-bottom: 1rem;
+	background: linear-gradient(90deg, var(--primary), var(--secondary));
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+#end-game-screen p {
+	font-size: 1.6rem; /* Крупнее счет */
+	margin: 1.5rem 0;
+}
+
+#end-game-screen #final-score {
+	font-weight: 700;
+	color: var(--secondary); /* Цвет для счета */
+}
+
+/* Позиционирование кнопки "Поделиться" рядом с "Играть снова" */
+#end-game-screen .next-btn,
+#end-game-screen .mode-btn {
+	margin: 0.5rem; /* Добавляем отступы между кнопками */
+	display: inline-block; /* Ставим кнопки в ряд */
+	width: auto; /* Автоматическая ширина */
+	padding: 0.8rem 2rem; /* Возвращаем паддинги кнопкам */
+}
+
+/* Выделение кнопки создания/шаринга челленджа */
+.mode-btn.accent {
+	background-color: rgba(245, 158, 11, 0.8); /* Яркий акцентный цвет */
+	border-color: rgba(245, 158, 11, 1);
+	color: var(--dark); /* Темный текст для лучшей читаемости */
+}
+.mode-btn.accent:hover {
+	background-color: rgba(245, 158, 11, 1);
+	box-shadow: 0 0 15px rgba(245, 158, 11, 0.6);
+}
+
+/* Небольшое улучшение для опций ответа при наведении */
+.option:hover {
+	transform: translateY(-3px) scale(1.02); /* Небольшое увеличение */
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25); /* Усиленная тень */
+	border-color: rgba(79, 70, 229, 0.7); /* Более явная граница */
+}
+
+/* Адаптация для очень маленьких экранов */
+@media (max-width: 400px) {
+	.logo {
+		font-size: 3rem;
+	}
+	.tagline {
+		font-size: 1rem;
+	}
+	.question {
+		font-size: 1.5rem;
+	}
+	.option {
+		font-size: 1rem;
+		padding: 0.8rem;
+	}
+	.score-container {
+		font-size: 1rem; /* Уменьшить шрифт счета/серии */
+	}
+	.mode-btn,
+	.next-btn {
+		padding: 0.6rem 1.2rem; /* Уменьшить кнопки */
+		font-size: 0.9rem;
+	}
+}
+
+/* Стили для конфетти - убедимся, что они позиционируются правильно */
+.confetti {
+	position: absolute; /* Уже было, но важно */
+	width: 8px; /* Можно сделать поменьше */
+	height: 8px;
+	/* background-color задается в JS */
+	opacity: 1; /* Начальная прозрачность */
+	border-radius: 50%;
+	pointer-events: none; /* Чтобы не мешали кликам */
+	z-index: 10; /* Поверх других элементов контейнера */
+}
+
+/* Убедимся, что game-container может содержать абсолютно позиционированные элементы */
+.game-container {
+	/* ... другие стили ... */
+	position: relative; /* Необходимо для position: absolute дочерних элементов */
+	overflow: hidden; /* Чтобы конфетти не вылетали за пределы */
+}
