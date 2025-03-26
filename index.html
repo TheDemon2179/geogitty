@@ -1,53 +1,56 @@
 <!DOCTYPE html>
 <html lang="ru">
-	<!-- Изменен язык -->
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<!-- Изменено название -->
 		<title>Geogitty - Угадай Географию!</title>
+
 		<link rel="stylesheet" href="styles.css" />
+		<!-- Добавим иконки (Font Awesome) для кнопок настроек/лидерборда -->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+			integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
 	</head>
 	<body>
 		<div id="particles-js"></div>
-		<div class="floating-islands">
-			<div class="island"></div>
-			<div class="island"></div>
-			<div class="island"></div>
-			<div class="island"></div>
-		</div>
+		<div class="floating-islands"></div>
 
 		<div class="container">
 			<header>
+				<!-- Кнопки Настроек и Лидерборда -->
+				<div class="header-buttons">
+					<button id="settings-btn" class="icon-btn" title="Настройки">
+						<i class="fas fa-cog"></i>
+					</button>
+					<button id="leaderboard-btn" class="icon-btn" title="Таблица лидеров">
+						<i class="fas fa-trophy"></i>
+					</button>
+				</div>
 				<div class="globe-icon">🌎</div>
 				<h1 class="logo">Geogitty</h1>
-				<!-- Изменен текст -->
-				<p class="tagline" data-translate="tagline">
-					Проверь свои знания географии с помощью наших веселых и сложных
-					викторин! Угадывай столицы, страны, флаги и многое другое.
-				</p>
+				<p class="tagline" data-translate="tagline">...</p>
 			</header>
 
-			<!-- Добавлен блок для отображения названия челленджа -->
+			<!-- Информация о челлендже от друга -->
 			<div
-				id="challenge-info"
-				class="challenge-info"
-				style="
-					text-align: center;
-					margin-bottom: 1rem;
-					font-size: 1.1em;
-					color: var(--accent);
-					display: none;
-				"
-			>
+				id="challenge-creator-info"
+				class="challenge-creator-info"
+				style="display: none"
+			></div>
+
+			<div id="challenge-info" class="challenge-info" style="display: none">
 				Играем в челлендж: <span id="challenge-name"></span>
 			</div>
 
 			<div class="game-container">
-				<!-- Добавлен контейнер для финального результата (изначально скрыт) -->
 				<div id="end-game-screen" style="display: none; text-align: center">
 					<h2 data-translate="gameOver">Игра окончена!</h2>
-					<p style="font-size: 1.5rem; margin: 1rem 0">
+					<p style="font-size: 1.6rem; margin: 1.5rem 0">
+						<!-- Убедитесь, что стили вам подходят -->
 						<span data-translate="yourScore">Ваш итоговый счет</span>:
 						<span id="final-score">0</span>
 					</p>
@@ -60,21 +63,24 @@
 					</button>
 					<button
 						id="share-challenge-btn"
-						class="mode-btn"
+						class="mode-btn accent"
 						data-translate="shareResults"
 						style="margin-top: 1rem; display: none"
 					>
-						Поделиться результатом (Челлендж)
+						Поделиться результатом
 					</button>
 				</div>
 
-				<!-- Игровой интерфейс (изначально видим) -->
 				<div id="game-interface">
 					<div class="score-container">
-						<!-- Изменен текст -->
 						<div class="score">
 							🏆 <span data-translate="score">Счет</span>:
 							<span id="score">0</span>
+						</div>
+						<!-- Отображение здоровья -->
+						<div class="health">
+							❤️ <span data-translate="health">Здоровье</span>:
+							<span id="health">3</span>
 						</div>
 						<div class="streak">
 							🔥 <span data-translate="streak">Серия</span>:
@@ -86,8 +92,17 @@
 						<div class="progress-bar" id="progress" style="width: 0%"></div>
 					</div>
 
+					<!-- Отображение таймера -->
+					<div class="timer-container" style="display: none">
+						⏳ <span data-translate="timeRemaining">Осталось времени</span>:
+						<span id="timer">0</span>s
+						<div class="timer-bar-container">
+							<div class="timer-bar" id="timer-bar"></div>
+						</div>
+					</div>
+
 					<div class="game-mode-selector">
-						<!-- Добавлены data-translate атрибуты -->
+						<!-- Кнопки выбора режима -->
 						<button
 							class="mode-btn active"
 							data-mode="capitals"
@@ -112,28 +127,25 @@
 						>
 							Места
 						</button>
-						<!-- Кнопка для создания челленджа (простая версия) -->
+						<!-- Кнопка для создания челленджа -->
 						<button
 							id="create-challenge-btn"
 							class="mode-btn accent"
 							data-translate="createChallenge"
-							title="Создать ссылку на челлендж из текущего режима и 10 случайных вопросов"
+							title="Создать ссылку на челлендж из текущего режима и вопросов"
 						>
 							Создать челлендж
 						</button>
 					</div>
 
 					<div class="question-container">
-						<!-- Изменен текст -->
 						<div class="question" id="question" data-translate="loading">
 							Загрузка вопроса...
 						</div>
 						<div class="feedback" id="feedback"></div>
 					</div>
 
-					<div class="options" id="options">
-						<!-- Опции будут генерироваться JS -->
-					</div>
+					<div class="options" id="options"></div>
 
 					<button
 						class="next-btn"
@@ -144,6 +156,68 @@
 						Следующий вопрос
 					</button>
 				</div>
+			</div>
+		</div>
+
+		<!-- Модальное окно Настроек -->
+		<div id="settings-modal" class="modal">
+			<div class="modal-content">
+				<span class="close-btn" id="close-settings-btn">×</span>
+				<h2 data-translate="settings">Настройки</h2>
+
+				<div class="setting-item">
+					<label for="nickname-input" data-translate="nickname">Никнейм:</label>
+					<input
+						type="text"
+						id="nickname-input"
+						maxlength="20"
+						placeholder="Ваш ник"
+					/>
+				</div>
+
+				<div class="setting-item">
+					<label for="rounds-input" data-translate="roundsCount"
+						>Количество раундов:</label
+					>
+					<input type="number" id="rounds-input" min="3" max="50" value="10" />
+				</div>
+
+				<div class="setting-item">
+					<label for="health-input" data-translate="healthCount"
+						>Количество жизней (ошибок):</label
+					>
+					<input type="number" id="health-input" min="1" max="10" value="3" />
+				</div>
+
+				<div class="setting-item">
+					<label for="time-input" data-translate="timePerRound"
+						>Время на раунд (секунд, 0 - выкл):</label
+					>
+					<input type="number" id="time-input" min="0" max="60" value="0" />
+				</div>
+
+				<button id="save-settings-btn" class="next-btn" data-translate="save">
+					Сохранить
+				</button>
+			</div>
+		</div>
+
+		<!-- Модальное окно Лидерборда -->
+		<div id="leaderboard-modal" class="modal">
+			<div class="modal-content">
+				<span class="close-btn" id="close-leaderboard-btn">×</span>
+				<h2 data-translate="leaderboard">Таблица лидеров (Локальная)</h2>
+				<div id="leaderboard-list">
+					<!-- Записи будут добавлены JS -->
+				</div>
+				<button
+					id="clear-leaderboard-btn"
+					class="mode-btn accent"
+					data-translate="clearLeaderboard"
+					style="margin-top: 1rem"
+				>
+					Очистить таблицу
+				</button>
 			</div>
 		</div>
 
